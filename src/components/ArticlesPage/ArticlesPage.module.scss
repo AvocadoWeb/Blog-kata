@@ -1,0 +1,203 @@
+.articles {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 26px;
+  height: 897px;
+
+  &__list {
+    display: flex;
+    flex-direction: column;
+
+    .item {
+      display: flex;
+      justify-content: space-between;
+      overflow: hidden;
+      box-sizing: border-box;
+      width: 938px;
+      min-height: 140px;
+      padding: 15px 14px 24px 19px;
+      margin-bottom: 26px;
+      background: #ffffff;
+      border-radius: 5px;
+      filter: drop-shadow(0px 4px 12px rgba(0, 0, 0, 0.15));
+
+      .article {
+        width: 682px;
+
+        &__info {
+          display: flex;
+          flex-direction: column;
+
+          &__header {
+            display: flex;
+            align-items: center;
+
+            &__title {
+              font-family: 'Inter';
+              font-size: 20px;
+              font-weight: 400;
+              line-height: 28px;
+              display: flex;
+              align-items: center;
+              color: #1890ff;
+              margin: 0;
+              margin-right: 10px;
+              height: 28px;
+            }
+
+            .like {
+              display: flex;
+              align-items: center;
+              border: none;
+              box-shadow: none;
+              padding: 5px;
+              background-color: #ffffff;
+            }
+
+            .svgLike:hover {
+              transform: scale(1.2);
+            }
+
+            .heartFilled {
+              color: #ed553b;
+              width: 20px;
+              height: 20px;
+              cursor: pointer;
+            }
+
+            .heartOutlined {
+              margin-left: 5px;
+              font-size: 14px;
+              line-height: 22px;
+              color: rgba(0, 0, 0, 0.75);
+              margin-right: 5px;
+              display: flex;
+              align-items: center;
+              cursor: pointer;
+            }
+
+            .heartOutlined:hover {
+              transform: scale(1.2);
+              color: red;
+            }
+
+            &__countLike {
+              font-family: 'Inter';
+              font-size: 13px;
+              line-height: 22px;
+              color: rgba(0, 0, 0, 0.75);
+            }
+          }
+
+          &__tag {
+            margin-bottom: 15px;
+
+            .tagname {
+              display: inline-flex;
+              margin: 6px 8px 6px 0;
+              padding: 2px 6px 3px 5px;
+              border: 1px solid black;
+              border-radius: 2px;
+              font-weight: 400;
+              font-size: 12px;
+              line-height: 15px;
+              color: black;
+            }
+          }
+        }
+
+        &__content {
+          font-family: 'Inter';
+          font-size: 12px;
+          line-height: 22px;
+          color: black;
+          word-break: break-word;
+          margin-bottom: 24px;
+        }
+      }
+
+      .user {
+        display: flex;
+        flex-direction: column;
+
+        &__cont {
+          display: flex;
+          margin-bottom: 30px;
+
+          &__info {
+            &__name {
+              font-family: 'Inter';
+              font-size: 18px;
+              line-height: 28px;
+              display: flex;
+              align-items: center;
+              color: black;
+            }
+
+            &__date {
+              font-family: 'Inter';
+              font-size: 12px;
+              line-height: 22px;
+              display: flex;
+              align-items: center;
+              color: rgba(0, 0, 0, 0.5);
+            }
+          }
+
+          &__avatar {
+            width: 46px;
+            height: 46px;
+            margin-left: 12px;
+            border-radius: 50%;
+          }
+        }
+
+        .descbuttons {
+          display: flex;
+          justify-content: space-between;
+
+          .delete,
+          .edit {
+            cursor: pointer;
+            background: #fff;
+            border-radius: 5px;
+            padding: 6px 19px 5px 19px;
+            font-weight: 400;
+            font-size: 14px;
+            line-height: 22px;
+          }
+
+          .edit {
+            margin-left: 6px;
+            color: #52c41a;
+            border: 1px solid #52c41a;
+            transition: 0.3s;
+
+            &:hover {
+              background: #52c41a;
+              color: #fff;
+            }
+          }
+
+          .delete {
+            color: #f5222d;
+            border: 1px solid #f5222d;
+            transition: 0.3s;
+
+            &:hover {
+              background: #f5222d;
+              color: #fff;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .pagination {
+    display: flex;
+    justify-content: center;
+    padding-bottom: 25px;
+  }
+}

@@ -1,0 +1,53 @@
+html,
+body,
+p,
+ul,
+li,
+h1 {
+  margin: 0;
+  padding: 0;
+}
+
+ul {
+  list-style: none;
+}
+
+input,
+textarea {
+  padding: 0;
+  margin: 0;
+  font: inherit;
+  color: inherit;
+  resize: none;
+  cursor: text;
+}
+
+button {
+  margin: 0;
+  border: none;
+  cursor: pointer;
+}
+
+a {
+  text-decoration: none;
+}
+
+html {
+  box-sizing: border-box;
+}
+
+*,
+*:before,
+*:after {
+  box-sizing: inherit;
+}
+
+img {
+  height: auto;
+  max-width: 100%;
+}
+
+body {
+  font-family: 'TT Lakes', sans-serif;
+  background-color: #d4d3d3;
+}

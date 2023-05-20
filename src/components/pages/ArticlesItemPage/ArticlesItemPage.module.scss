@@ -1,0 +1,179 @@
+.full {
+  font-family: 'Inter';
+  display: flex;
+  flex-direction: column;
+  margin: 24px auto 0px auto;
+  min-height: 140px;
+  padding: 15px;
+  width: 938px;
+  background: white;
+
+  .item {
+    display: flex;
+    justify-content: space-between;
+    overflow: hidden;
+    box-sizing: border-box;
+    width: 906px;
+    min-width: 500px;
+    margin-bottom: 26px;
+    background: #ffffff;
+    border-radius: 5px;
+
+    .article {
+      width: 682px;
+
+      &__info {
+        display: flex;
+        flex-direction: column;
+
+        &__header {
+          display: flex;
+          align-items: center;
+
+          &__title {
+            font-family: 'Inter';
+            font-weight: 400;
+            font-size: 20px;
+            line-height: 28px;
+            display: flex;
+            align-items: center;
+            color: #1890ff;
+            margin: 0 10px 4px 0;
+          }
+
+          .like {
+            display: flex;
+            align-items: center;
+            border: none;
+            box-shadow: none;
+            padding: 5px;
+            background-color: #ffffff;
+          }
+
+          .svgLike:hover {
+            transform: scale(1.2);
+          }
+
+          .heartFilled {
+            color: #ed553b;
+            width: 20px;
+            height: 20px;
+          }
+
+          .heartOutlined {
+            margin-left: 5px;
+            font-size: 14px;
+            line-height: 22px;
+            color: rgba(0, 0, 0, 0.75);
+            margin-right: 5px;
+            display: flex;
+            align-items: center;
+          }
+
+          &__countLike {
+            font-family: 'Inter';
+            font-size: 12px;
+            line-height: 22px;
+            color: rgba(0, 0, 0, 0.75);
+          }
+        }
+
+        &__tag {
+          .tagname {
+            display: inline-flex;
+            margin: 6px 8px 6px 0;
+            padding: 2px 6px 3px 5px;
+            border: 1px solid black;
+            border-radius: 2px;
+            font-weight: 400;
+            font-size: 12px;
+            line-height: 15px;
+            color: black;
+          }
+        }
+      }
+
+      &__content {
+        font-family: 'Inter';
+        font-size: 12px;
+        line-height: 22px;
+        color: black;
+        word-break: break-word;
+      }
+
+      .descbuttons {
+        display: flex;
+        justify-content: space-between;
+        .delete,
+        .edit {
+          cursor: pointer;
+          background: #fff;
+          border-radius: 5px;
+          padding: 6px 19px 5px 19px;
+          font-weight: 400;
+          font-size: 14px;
+          line-height: 22px;
+        }
+        .edit {
+          margin-left: 6px;
+          color: #52c41a;
+          border: 1px solid #52c41a;
+          transition: 0.3s;
+          &:hover {
+            background: #52c41a;
+            color: #fff;
+          }
+        }
+        .delete {
+          color: #f5222d;
+          border: 1px solid #f5222d;
+          transition: 0.3s;
+          &:hover {
+            background: #f5222d;
+            color: #fff;
+          }
+        }
+      }
+    }
+
+    .user {
+      display: flex;
+
+      &__info {
+        &__name {
+          font-family: 'Inter';
+          font-size: 18px;
+          line-height: 28px;
+          display: flex;
+          align-items: center;
+          color: black;
+        }
+
+        &__date {
+          font-family: 'Inter';
+          font-size: 12px;
+          line-height: 22px;
+          display: flex;
+          align-items: center;
+          color: rgba(0, 0, 0, 0.5);
+        }
+      }
+
+      &__avatar {
+        width: 46px;
+        height: 46px;
+        margin-left: 12px;
+        border-radius: 50%;
+      }
+    }
+  }
+
+  .description {
+    font-family: 'Inter';
+    font-size: 20px;
+    line-height: 28px;
+    color: rgba(0, 0, 0, 0.75);
+    word-break: break-word;
+    margin-bottom: 10px;
+  }
+}
