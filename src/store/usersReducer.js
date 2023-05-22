@@ -1,5 +1,34 @@
-import { createSlice } from '@reduxjs/toolkit'
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
+
 import { registerUser, loginUser, getCurrentUser, updateUser, initAuth } from '../services/userService'
+
+export const fetchRegisterUser = createAsyncThunk(
+  'users/registerUser',
+  async ({ username, password, email }, { rejectWithValue }) => {
+    return await registerUser({ username, password, email }, rejectWithValue)
+  })
+
+export const fetchLoginUser = createAsyncThunk(
+  'users/loginUser',
+  async ({ email, password }, { rejectWithValue }) => {
+    return await loginUser({ email, password }, rejectWithValue)
+  })
+
+export const fetchCurrentUser = createAsyncThunk(
+  'users/getCurrentUser',
+  async () => {
+    return await getCurrentUser()
+  })
+
+export const fetchUpdateUser = createAsyncThunk(
+  'users/updateUser',
+  async ({ username, email, password, image, token }, { rejectWithValue }) => {
+    return await updateUser({ username, email, password, image, token }, rejectWithValue)
+  })
+
+export const fetchInitAuth = createAsyncThunk('auth/initAuth', async () => {
+  return await initAuth()
+})
 
 const usersReducer = createSlice({
   name: 'users',
@@ -22,7 +51,7 @@ const usersReducer = createSlice({
     },
     setLogOut: (state) => {
       state.data = null
-      localStorage.clear()
+      localStorage.removeItem('token')
       state.token = false
       state.image = null
       state.password = null
@@ -32,26 +61,26 @@ const usersReducer = createSlice({
     },
   },
   extraReducers: {
-    [registerUser.pending]: (state) => {
+    [fetchRegisterUser.pending]: (state) => {
       state.isLoading = true
       state.error = null
     },
-    [registerUser.fulfilled]: (state, action) => {
+    [fetchRegisterUser.fulfilled]: (state, action) => {
       state.isLoading = false
       state.error = null
       localStorage.setItem('token', action.payload.token)
       state.token = action.payload.token
       state.data = action.payload
     },
-    [registerUser.rejected]: (state, action) => {
+    [fetchRegisterUser.rejected]: (state, action) => {
       state.isLoading = false
       state.error = action.payload
     },
-    [loginUser.pending]: (state) => {
+    [fetchLoginUser.pending]: (state) => {
       state.isLoading = true
       state.error = null
     },
-    [loginUser.fulfilled]: (state, action) => {
+    [fetchLoginUser.fulfilled]: (state, action) => {
       state.isLoading = false
       state.error = null
       localStorage.setItem('data', JSON.stringify(action.payload))
@@ -59,16 +88,16 @@ const usersReducer = createSlice({
       state.token = action.payload.token
       state.data = action.payload
     },
-    [loginUser.rejected]: (state, action) => {
+    [fetchLoginUser.rejected]: (state, action) => {
       state.isLoading = false
       state.error = action.payload
     },
 
-    [getCurrentUser.pending]: (state) => {
+    [fetchCurrentUser.pending]: (state) => {
       state.isLoading = true
       state.error = null
     },
-    [getCurrentUser.fulfilled]: (state, action) => {
+    [fetchCurrentUser.fulfilled]: (state, action) => {
       localStorage.getItem('data')
       state.isLoading = false
       state.error = null
@@ -77,15 +106,15 @@ const usersReducer = createSlice({
       state.email = action.payload.email
       state.image = action.payload.image
     },
-    [getCurrentUser.rejected]: (state, action) => {
+    [fetchCurrentUser.rejected]: (state, action) => {
       state.isLoading = false
       state.error = action.payload
     },
 
-    [updateUser.pending]: (state) => {
+    [fetchUpdateUser.pending]: (state) => {
       state.error = null
     },
-    [updateUser.fulfilled]: (state, action) => {
+    [fetchUpdateUser.fulfilled]: (state, action) => {
       state.isLoading = false
       state.error = null
       localStorage.setItem('token', action.payload.token)
@@ -94,22 +123,22 @@ const usersReducer = createSlice({
       state.image = action.payload.image
       state.data = action.payload
     },
-    [updateUser.rejected]: (state, action) => {
+    [fetchUpdateUser.rejected]: (state, action) => {
       state.isLoading = false
       state.error = action.payload
     },
 
-    [updateUser.pending]: (state) => {
+    [fetchUpdateUser.pending]: (state) => {
       state.isLoading = true
       state.error = null
     },
 
-    [initAuth.fulfilled]: (state, action) => {
+    [fetchInitAuth.fulfilled]: (state, action) => {
       state.isLoading = false
       state.error = null
       state.data = action.payload ? action.payload.user : localStorage.getItem('data') || null
     },
-    [initAuth.rejected]: (state) => {
+    [fetchInitAuth.rejected]: (state) => {
       state.isLoading = false
       state.error = null
     },

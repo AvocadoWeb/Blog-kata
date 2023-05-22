@@ -3,9 +3,7 @@ import { useForm } from 'react-hook-form'
 import { useDispatch, useSelector } from 'react-redux'
 import { useEffect } from 'react'
 
-import { setTagList, removeTagList, clearTagList, setIsEditTagList } from '../../../redux/articlesReducer'
-
-import { getArticles, createArticle, updateArticle } from '../../../services/articlesService'
+import { setTagList, removeTagList, clearTagList, setIsEditTagList, fetchArticles, fetchCreateArticle, fetchUpdateArticle } from '../../store/articlesReducer'
 
 import classes from './NewArticle.module.scss'
 
@@ -27,14 +25,14 @@ const NewArticle = () => {
 
   const onSubmit = ({ title, description, body }) => {
     if (isEdit) {
-      dispatch(updateArticle({ title, description, body, tagList, token, slug }))
+      dispatch(fetchUpdateArticle({ title, description, body, tagList, token, slug }))
     } else {
-      dispatch(createArticle({ title, description, body, tagList, token }))
+      dispatch(fetchCreateArticle({ title, description, body, tagList, token }))
     }
     dispatch(clearTagList())
     navigate('/')
     setTimeout(() => {
-      dispatch(getArticles({ pageNumber: 0 }))
+      dispatch(fetchArticles({ pageNumber: 0 }))
     }, 300)
   }
 

@@ -3,9 +3,8 @@ import { useForm } from 'react-hook-form'
 import { useDispatch } from 'react-redux'
 import { useEffect } from 'react'
 
-import { loginUser } from '../../../services/userService'
-
 import classes from './SignIn.module.scss'
+import { fetchLoginUser } from '../../store/usersReducer'
 
 const SignIn = () => {
   const {
@@ -20,7 +19,7 @@ const SignIn = () => {
   const token = localStorage.getItem('token')
 
   const onSubmit = ({ email, password }) => {
-    dispatch(loginUser({ email, password }))
+    dispatch(fetchLoginUser({ email, password }))
     reset()
     navigate('/')
   }

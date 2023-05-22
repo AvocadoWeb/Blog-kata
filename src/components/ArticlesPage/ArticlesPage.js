@@ -1,8 +1,7 @@
 import { useSelector, useDispatch } from 'react-redux'
 import { Pagination } from 'antd'
 import { useEffect } from 'react'
-import { setPageNumber } from '../../redux/articlesReducer'
-import { getArticles } from '../../services/articlesService'
+import { fetchArticles, setPageNumber } from '../../store/articlesReducer'
 import Spinner from '../Spinner/Spinner'
 
 import classes from './ArticlesPage.module.scss'
@@ -14,7 +13,7 @@ const ArticlesPage = () => {
   const dispatch = useDispatch()
 
   useEffect(() => {
-    dispatch(getArticles({ pageNumber: pageNumber * 5 - 5 }))
+    dispatch(fetchArticles({ pageNumber: pageNumber * 5 - 5 }))
   }, [dispatch, pageNumber])
 
   return (

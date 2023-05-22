@@ -2,11 +2,11 @@ import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useParams } from 'react-router-dom'
 
-import { getArticleItem } from '../../../services/articlesService'
-import Article from '../../Article/Article'
-import Spinner from '../../Spinner/Spinner'
+import { fetchArticleItem } from '../../store/articlesReducer'
+import Article from '../../components/Article/Article'
+import Spinner from '../../components/Spinner/Spinner'
 
-import classes from '../../ArticlesPage/ArticlesPage.module.scss'
+import classes from '../../components/ArticlesPage/ArticlesPage.module.scss'
 
 const ArticlesItemPage = () => {
   const dispatch = useDispatch()
@@ -15,7 +15,7 @@ const ArticlesItemPage = () => {
   const { articleItem, isLoading } = useSelector((state) => state.articles)
 
   useEffect(() => {
-    dispatch(getArticleItem({ slug }))
+    dispatch(fetchArticleItem({ slug }))
   }, [dispatch, slug])
 
   return isLoading ? (

@@ -2,9 +2,8 @@ import { Navigate } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
 import { useDispatch, useSelector } from 'react-redux'
 
-import { updateUser } from '../../../services/userService'
-
 import classes from './ProfilePage.module.scss'
+import { fetchUpdateUser } from '../../store/usersReducer'
 
 const ProfilePage = () => {
   const dispatch = useDispatch()
@@ -19,7 +18,7 @@ const ProfilePage = () => {
   } = useForm({ mode: 'all' })
 
   const onSubmit = (data) => {
-    dispatch(updateUser({ ...data, token }))
+    dispatch(fetchUpdateUser({ ...data, token }))
     reset()
   }
 

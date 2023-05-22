@@ -2,9 +2,8 @@ import { Link, Outlet, useNavigate } from 'react-router-dom'
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 
-import { setLogOut } from '../../redux/usersReducer'
-import { getCurrentUser } from '../../services/userService'
-import noAvatar from '../../img/no-avatar.svg'
+import { fetchCurrentUser, setLogOut } from '../../store/usersReducer'
+import NoAvatar from '../../assets/images/NoAvatar.svg'
 
 import classes from './Header.module.scss'
 
@@ -15,7 +14,7 @@ const Header = () => {
   const { username, image } = useSelector((state) => state.users)
 
   useEffect(() => {
-    if (token) dispatch(getCurrentUser({ token }))
+    if (token) dispatch(fetchCurrentUser({ token }))
   }, [token, dispatch])
 
   const userLogOut = () => {
@@ -39,7 +38,7 @@ const Header = () => {
                 <span className={classes.header__login__profile__username}>{username}</span>
                 <img
                   className={classes.header__login__profile__useravatar}
-                  src={image ? image : noAvatar}
+                  src={image ? image : NoAvatar}
                   alt="User Avatar"
                 />
               </div>

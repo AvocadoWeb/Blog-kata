@@ -6,11 +6,10 @@ import { useNavigate, Link } from 'react-router-dom'
 import { useState, useCallback } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 
-import { removeArticle, getArticles } from '../../services/articlesService'
-import { favoriteArticle, favoriteDelete } from '../../services/articlesService'
 import ReactMarkdown from 'react-markdown'
-import like from '../../img/like.svg'
-import liked from '../../img/liked.svg'
+import Like from '../../assets/images/Like.svg'
+import Liked from '../../assets/images/Liked.svg'
+import { fetchArticles, fetchFavoriteArticle, fetchFavoriteDelete, fetchRemoveArticle } from '../../store/articlesReducer'
 
 const Article = (props) => {
   const token = localStorage.getItem('token')
@@ -24,10 +23,10 @@ const Article = (props) => {
     (slug) => {
       if (token) {
         if (localStorage.getItem(`like_${slug}`) === 'true') {
-          dispatch(favoriteDelete({ slug }))
+          dispatch(fetchFavoriteDelete({ slug }))
           setLikeCount(likeCount - 1)
         } else {
-          dispatch(favoriteArticle({ slug }))
+          dispatch(fetchFavoriteArticle({ slug }))
           setLikeCount(likeCount + 1)
         }
       }
@@ -36,10 +35,10 @@ const Article = (props) => {
   )
 
   const removeArticleItem = () => {
-    dispatch(removeArticle({ slug, token }))
+    dispatch(fetchRemoveArticle({ slug, token }))
     navigate('/')
     setTimeout(() => {
-      dispatch(getArticles({ pageNumber: 0 }))
+      dispatch(fetchArticles({ pageNumber: 0 }))
     }, 300)
   }
 
@@ -53,9 +52,9 @@ const Article = (props) => {
             </Link>
             <Button className={classes.like} onClick={() => likeHandler(slug)}>
               {localStorage.getItem(`like_${slug}`) === 'true' ? (
-                <img className={classes.svgLike} src={liked} alt="liked" />
+                <img className={classes.svgLike} src={Liked} alt="liked" />
               ) : (
-                <img className={classes.svgLike} src={like} alt="like" />
+                <img className={classes.svgLike} src={Like} alt="like" />
               )}
             </Button>
             <span className={classes.article__info__header__countLike}>{favoritesCount}</span>

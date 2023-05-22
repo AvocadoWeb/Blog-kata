@@ -1,5 +1,48 @@
-import { createSlice } from '@reduxjs/toolkit'
-import { getArticles, getArticleItem, favoriteDelete, favoriteArticle } from '../services/articlesService'
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
+import { getArticles, getArticleItem, favoriteDelete, favoriteArticle, createArticle, removeArticle, updateArticle } from '../services/articlesService'
+
+export const fetchArticles = createAsyncThunk(
+  'articlesReducer/getArticles',
+  async ({ pageNumber }, { rejectWithValue }) => {
+    return await getArticles({ pageNumber }, rejectWithValue)
+  })
+
+export const fetchArticleItem = createAsyncThunk(
+  'articlesReducer/getArticleItem',
+  async ({ slug }, { rejectWithValue, dispatch }) => {
+    dispatch(setIsLoading())
+    return await getArticleItem({ slug }, rejectWithValue, dispatch)
+  })
+
+export const fetchCreateArticle = createAsyncThunk(
+  'articles/createArticle',
+  async ({ title, description, body, tagList }, { rejectWithValue }) => {
+    return await createArticle({ title, description, body, tagList }, rejectWithValue)
+  })
+
+export const fetchRemoveArticle = createAsyncThunk(
+  'articles/removeArticle',
+  async ({ slug }, { rejectWithValue }) => {
+    return await removeArticle({ slug }, rejectWithValue)
+  })
+
+export const fetchUpdateArticle = createAsyncThunk(
+  'articles/updateArticle',
+  async ({ slug, title, description, body, tagList }, { rejectWithValue }) => {
+    return await updateArticle({ slug, title, description, body, tagList }, rejectWithValue)
+  })
+
+export const fetchFavoriteArticle = createAsyncThunk(
+  'articles/favoriteArticle',
+  async ({ slug }, { rejectWithValue }) => {
+    return await favoriteArticle({ slug }, rejectWithValue)
+  })
+
+export const fetchFavoriteDelete = createAsyncThunk(
+  'articles/favoriteDelete',
+  async ({ slug }) => {
+    return await favoriteDelete({ slug })
+  })
 
 const articlesReducer = createSlice({
   name: 'articles',
@@ -33,56 +76,56 @@ const articlesReducer = createSlice({
     },
   },
   extraReducers: {
-    [getArticles.pending]: (state) => {
+    [fetchArticles.pending]: (state) => {
       state.isLoading = true
       state.error = null
     },
-    [getArticles.fulfilled]: (state, action) => {
+    [fetchArticles.fulfilled]: (state, action) => {
       state.articles = [...action.payload.articles]
       state.isLoading = false
       state.error = null
       state.articlesCount = action.payload.articlesCount
     },
-    [getArticles.rejected]: (state, action) => {
+    [fetchArticles.rejected]: (state, action) => {
       state.isLoading = false
       state.error = action.payload
     },
-    [getArticleItem.pending]: (state) => {
+    [fetchArticleItem.pending]: (state) => {
       state.isLoading = true
       state.error = null
     },
-    [getArticleItem.fulfilled]: (state, action) => {
+    [fetchArticleItem.fulfilled]: (state, action) => {
       state.isLoading = false
       state.error = null
       state.articleItem = action.payload
       state.tagList = action.payload.tagList
     },
-    [getArticleItem.rejected]: (state, action) => {
+    [fetchArticleItem.rejected]: (state, action) => {
       state.isLoading = false
       state.articleItem = null
       state.error = action.payload
     },
 
-    [favoriteArticle.fulfilled]: (state, action) => {
+    [fetchFavoriteArticle.fulfilled]: (state, action) => {
       state.isLoading = false
       state.articles = state.articles.map((article) =>
         article.slug === action.payload.slug ? action.payload : article
       )
       localStorage.setItem(`like_${action.payload.slug}`, true)
     },
-    [favoriteArticle.rejected]: (state, action) => {
+    [fetchFavoriteArticle.rejected]: (state, action) => {
       state.isLoading = false
       state.error = action.payload
     },
 
-    [favoriteDelete.fulfilled]: (state, action) => {
+    [fetchFavoriteDelete.fulfilled]: (state, action) => {
       state.isLoading = false
       state.articles = state.articles.map((article) =>
         article.slug === action.payload.slug ? action.payload : article
       )
       localStorage.removeItem(`like_${action.payload.slug}`, false)
     },
-    [favoriteDelete.rejected]: (state, action) => {
+    [fetchFavoriteDelete.rejected]: (state, action) => {
       state.isLoading = false
       state.error = action.payload
     },

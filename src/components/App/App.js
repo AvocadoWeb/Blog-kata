@@ -2,11 +2,11 @@ import { Route, Routes } from 'react-router-dom'
 
 import Header from '../Header'
 import ArticlesPage from '../ArticlesPage'
-import ArticlesItemPage from '../pages/ArticlesItemPage'
-import SignUp from '../pages/SignUp'
-import SignIn from '../pages/SignIn'
-import ProfilePage from '../pages/ProfilePage'
-import NewArticle from '../pages/NewArticle'
+import ArticlesItemPage from '../../pages/ArticlesItemPage'
+import SignUp from '../../pages/SignUp'
+import SignIn from '../../pages/SignIn'
+import ProfilePage from '../../pages/ProfilePage'
+import NewArticle from '../../pages/NewArticle'
 
 const App = () => {
   return (

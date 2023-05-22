@@ -4,8 +4,7 @@ import { useForm } from 'react-hook-form'
 import { useDispatch, useSelector } from 'react-redux'
 import { useEffect } from 'react'
 
-import { setUserData } from '../../../redux/usersReducer'
-import { registerUser, loginUser, getCurrentUser } from '../../../services/userService'
+import { fetchCurrentUser, fetchLoginUser, fetchRegisterUser, setUserData } from '../../store/usersReducer'
 
 import classes from './SignUp.module.scss'
 
@@ -24,15 +23,15 @@ const SignUp = () => {
   } = useForm({ mode: 'all' })
 
   const onSubmit = (data) => {
-    dispatch(registerUser(data))
+    dispatch(fetchRegisterUser(data))
     dispatch(setUserData(data))
     reset()
   }
 
   useEffect(() => {
     if (token) {
-      dispatch(loginUser({ email, password }))
-      dispatch(getCurrentUser({ token }))
+      dispatch(fetchLoginUser({ email, password }))
+      dispatch(fetchCurrentUser({ token }))
       navigate('/')
     }
   }, [token, email, password, navigate, dispatch])
